@@ -17,14 +17,17 @@ class Document:
         Path.get_src(EMPTY_DOC_FOLDER)
     ]
 
-    def __init__(self, container: str | PathLike[str] | BytesIO, **params):
+    def __init__(self,
+                 container: str | PathLike[str] | BytesIO,
+                 style: str | PathLike[str] = None,
+                 **params):
         """
         Class for creating doc files
         @param container: container for saving doc file (path, or BytesIO)
+        @keyword style: path to doc style file
         @param params: Additional params
         @keyword jinja_globals: dict with jinja global objects
         @keyword parts_folder: folder with xml template files
-        @keyword style: name of doc style file
         """
         def create_jinja_env() -> jinja2.Environment:
             global_vars = {
@@ -54,9 +57,10 @@ class Document:
         self.rels = []
 
         # Adding style
-        self.add_relation(
-            Xml(RelType.STYLE, "styles.xml", Path.get_src(self.STYLES_FOLDER + params.get('style', 'default') + ".xml"))
-        )
+        if style is None:
+            style = Path.get_src(self.STYLES_FOLDER + "default.xml")
+
+        self.add_relation(Xml(RelType.STYLE, "styles.xml", style))
 
     def __del__(self):
         if not self.__saved:
@@ -116,5 +120,7 @@ class Document:
         @param step_name: name of the step (without .xml)
         @param context: params to replace
         """
-        step = self.jenv.get_template(step_name + '.xml')
+        filename, extension = Path.Utils.get_filename_and_extension(step_name)
+
+        step = self.jenv.get_template(step_name + '.xml' if extension is None else '')
         self.content.append(step.render(**context))

@@ -12,25 +12,27 @@ class Lab(ABC):
         self.student = student
         self.info = info
 
-        self.doc_container = BytesIO()
+        self.__doc_container = BytesIO()
 
-        word_params = params.get('word_params', {})
-
-        word_params['jinja_globals'] = {
+        params['jinja_globals'] = {
             'laba': self.info,
             'student': self.student,
-            **word_params.get('jinja_globals', {})
+            **params.get('jinja_globals', {})
         }
 
-        self.document = Word.Document(self.doc_container, **word_params)
+        self.document = Word.Document(self.__doc_container, **params)
 
     @abstractmethod
     def add_input(self, key: str, value) -> None:
         pass
 
     @abstractmethod
-    def run(self) -> BytesIO:
+    def run(self):
         pass
+
+    def get_container(self) -> BytesIO:
+        self.document.save()
+        return self.__doc_container
 
     def save_to_file(self, filename: str = None):
         if filename is None:
@@ -40,4 +42,5 @@ class Lab(ABC):
 
         self.document.save()
         with open(filename, 'wb') as f:
-            f.write(self.doc_container.read())
+            self.__doc_container.seek(0)
+            f.write(self.__doc_container.read())

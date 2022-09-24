@@ -1,7 +1,8 @@
 import os
 from os import path
 
-src_path = path.join(path.dirname(path.realpath(__file__)), "../src")
+src_path = path.realpath(path.join(path.dirname(__file__), "..", "src"))
+docparts_path = path.join(src_path, "docparts")
 working_dir = os.getcwd()
 
 
@@ -14,8 +15,13 @@ def __get_path(base: str, rel_path: str = None):
 
 
 def get_src(rel_path: str = None) -> str:
-    """ Function for getting absolute path to file or folder in src directory """
+    """ Function for getting absolute path to file or folder in Word4Univer directory """
     return __get_path(src_path, rel_path)
+
+
+def get_docparts(rel_path: str = None) -> str:
+    """ Function for getting absolute path to file or folder in Word4Univer directory """
+    return __get_path(docparts_path, rel_path)
 
 
 def get_wd(rel_path: str = None) -> str:

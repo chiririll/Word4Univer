@@ -6,7 +6,7 @@ def create_folders(path_str: str | os.PathLike[str]) -> None:
     Function for creating all folders for path
     @param path_str: Path
     """
-    os.makedirs(os.path.split(path_str)[0])
+    os.makedirs(os.path.split(path_str)[0], exist_ok=True)
 
 
 def walk(folder: str | os.PathLike[str], base_path: str = '') -> list[str]:
@@ -34,17 +34,13 @@ def walk(folder: str | os.PathLike[str], base_path: str = '') -> list[str]:
     return files
 
 
-def get_filename_and_extension(file: str | os.PathLike[str]) -> tuple[str, str]:
+def get_filename_and_extension(file: str | os.PathLike[str]) -> tuple[str, [str | None]]:
     """
     Parse filename
     @param file: Path to file
     @return: tuple (filename, extension)
     """
-    filename = file.replace('\\', '/').split('/')[-1]
-    parts = filename.split('.')
+    parts = file.rsplit('.', 2)
 
-    if len(parts) < 2:
-        return filename, ""
-
-    return '.'.join(parts[:-1]), parts[-1]
+    return parts[0], parts[1] if len(parts) > 1 else None
 

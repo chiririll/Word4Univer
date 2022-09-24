@@ -6,9 +6,11 @@ class StudentInfo:
 
     def __init__(self,
                  name: FullName = None,
+                 group: str = "Group",
                  var: int = 0):
-        self.variant = var
         self.name = name if name is not None else FullName()
+        self.group = group
+        self.variant = var
 
     def __str__(self):
         return self.name

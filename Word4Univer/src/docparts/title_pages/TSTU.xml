@@ -79,7 +79,10 @@
         <w:rPr>
             <w:i/>
         </w:rPr>
-        <w:t>{{ laba['type'] }}</w:t>
+        <w:t>{{ laba.name }}</w:t>
+        {% if laba.index != 0 %}
+        <w:t xml:space="preserve"> №{{ laba.index }}</w:t>
+        {% endif %}
     </w:r>
 </w:p>
 <w:p>
@@ -87,7 +90,7 @@
         <w:pStyle w:val="a9"/>
     </w:pPr>
     <w:r>
-        <w:t>По дисциплине «{{ subject['title'] }}»</w:t>
+        <w:t>По дисциплине «{{ laba.subject.name }}»</w:t>
     </w:r>
 </w:p>
 <w:p>
@@ -95,7 +98,7 @@
         <w:pStyle w:val="a9"/>
     </w:pPr>
     <w:r>
-        <w:t>«{{ laba['title'] }}»</w:t>
+        <w:t>«{{ laba.theme }}»</w:t>
     </w:r>
 </w:p>
 <w:p>
@@ -103,7 +106,7 @@
         <w:pStyle w:val="a9"/>
     </w:pPr>
     <w:r>
-        <w:t>Вариант {{ executor.variant }}</w:t>
+        <w:t>Вариант {{ student.variant }}</w:t>
     </w:r>
 </w:p>
 <w:p>
@@ -128,7 +131,7 @@
         <w:jc w:val="left"/>
     </w:pPr>
     <w:r>
-        <w:t>Выполнил: студент группы СИБ201</w:t>
+        <w:t>Выполнил: студент группы {{ student.group }}</w:t>
     </w:r>
 </w:p>
 <w:p>
@@ -138,7 +141,7 @@
         <w:jc w:val="left"/>
     </w:pPr>
     <w:r>
-        <w:t>{{ executor }}</w:t>
+        <w:t>{{ student.name.format('SNP') }}</w:t>
     </w:r>
 </w:p>
 <w:p>
@@ -165,7 +168,7 @@
         <w:jc w:val="left"/>
     </w:pPr>
     <w:r>
-        <w:t>{{ subject['teacher'] }}</w:t>
+        <w:t>{{ laba.subject.teacher.format('SNP') }}</w:t>
     </w:r>
 </w:p>
 <w:p>

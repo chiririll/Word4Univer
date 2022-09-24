@@ -135,7 +135,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>{{ laba.number }}</w:t>
+        <w:t>{{ laba.index }}</w:t>
     </w:r>
     <w:r>
         <w:rPr>
@@ -167,7 +167,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>{{ laba.title }}</w:t>
+        <w:t>{{ laba.theme }}</w:t>
     </w:r>
     <w:r>
         <w:rPr>
@@ -201,7 +201,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>Вариант №{{ executor.variant }}</w:t>
+        <w:t>Вариант №{{ student.variant }}</w:t>
     </w:r>
 </w:p>
 <w:p/>
@@ -235,7 +235,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>СИБ201</w:t>
+        <w:t>{{ student.group }}</w:t>
     </w:r>
 </w:p>
 <w:p w:rsidR="005042EC" w:rsidRPr="001074A1" w:rsidRDefault="00437914" w:rsidP="00437914">
@@ -251,7 +251,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>{{ executor }}</w:t>
+        <w:t>{{ student.name.format('Snp') }}</w:t>
     </w:r>
 </w:p>
 <w:p w:rsidR="005042EC" w:rsidRPr="001074A1" w:rsidRDefault="00437914" w:rsidP="00437914">
@@ -316,7 +316,7 @@
             <w:sz w:val="28"/>
             <w:szCs w:val="28"/>
         </w:rPr>
-        <w:t>Проверил: доцент Кулаков Ю.В.</w:t>
+        <w:t>Проверил: доцент {{ laba.subject.teacher.name.format('Snp') }}</w:t>
     </w:r>
 </w:p>
 <w:p w:rsidR="005042EC" w:rsidRPr="001074A1" w:rsidRDefault="00437914" w:rsidP="00437914">

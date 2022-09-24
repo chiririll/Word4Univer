@@ -1,3 +1,6 @@
+from .name_pattern import NamePattern
+
+
 class FullName:
     """ Class for storing names """
     def __init__(self,
@@ -7,6 +10,11 @@ class FullName:
         self.surname = surname
         self.name = name
         self.patronymic = patronymic
+
+    def format(self, pattern: NamePattern | str) -> str:
+        if pattern is not NamePattern:
+            pattern = NamePattern(pattern)
+        return pattern.get_str(self.surname, self.name, self.patronymic)
 
     def __str__(self):
         return ' '.join([self.surname, self.name, self.patronymic])
