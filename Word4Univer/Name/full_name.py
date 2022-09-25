@@ -7,9 +7,9 @@ class FullName:
                  surname: str = "Иванов",
                  name: str = "Иван",
                  patronymic: str = "Иванович"):
-        self.surname = surname
-        self.name = name
-        self.patronymic = patronymic
+        self.surname = surname.title()
+        self.name = name.title()
+        self.patronymic = patronymic.title()
 
     def format(self, pattern: NamePattern | str) -> str:
         if pattern is not NamePattern:

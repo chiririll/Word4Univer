@@ -20,14 +20,15 @@ class Document:
     def __init__(self,
                  container: str | PathLike[str] | BytesIO,
                  style: str | PathLike[str] = None,
+                 parts_folder: str | PathLike[str] = None,
                  **params):
         """
         Class for creating doc files
-        @param container: container for saving doc file (path, or BytesIO)
-        @keyword style: path to doc style file
-        @param params: Additional params
-        @keyword jinja_globals: dict with jinja global objects
-        @keyword parts_folder: folder with xml template files
+        :param container: container for saving doc file (path, or BytesIO)
+        :param style: path to doc style file
+        :param parts_folder: folder with xml template files
+        :param params: Additional params
+        :keyword jinja_globals: dict with jinja global objects
         """
         def create_jinja_env() -> jinja2.Environment:
             global_vars = {
@@ -36,8 +37,8 @@ class Document:
             }
 
             folders = self.SHARED_TEMPLATES
-            if params.get('parts_folder'):
-                folders.append(params.get('parts_folder'))
+            if parts_folder:
+                folders.append(parts_folder)
 
             env = jinja2.Environment(
                 loader=jinja2.FileSystemLoader(folders)
@@ -74,8 +75,8 @@ class Document:
     def add_relation(self, relation: Relation) -> int:
         """
         Method for adding external files (relations) to doc file
-        @param relation: relation object
-        @return: relation id
+        :param relation: relation object
+        :return: relation id
         """
         relation.id = len(self.rels) + 1
         self.rels.append(relation)
@@ -117,8 +118,8 @@ class Document:
     def add_step(self, step_name: str, **context) -> None:
         """
         Method for rendering xml template (step)
-        @param step_name: name of the step (without .xml)
-        @param context: params to replace
+        :param step_name: name of the step (without .xml)
+        :param context: params to replace
         """
         filename, extension = Path.Utils.get_filename_and_extension(step_name)
 
