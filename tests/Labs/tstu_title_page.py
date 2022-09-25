@@ -19,7 +19,3 @@ class TstuTitlePageLab(Lab):
     def run(self):
         TitlePages.tstu(self.document)
         pass
-
-    def add_input(self, key: str, value) -> None:
-        pass
-

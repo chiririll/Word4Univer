@@ -19,7 +19,3 @@ class TimpTitlePageLab(Lab):
     def run(self):
         TitlePages.timp(self.document)
         pass
-
-    def add_input(self, key: str, value) -> None:
-        pass
-

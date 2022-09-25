@@ -5,19 +5,21 @@ from os import PathLike
 
 from .. import Word, Path
 from ..Info import LabInfo, StudentInfo
+from .inputs import Inputs
 
 
 class Lab(ABC):
     """ Base class for all labs  """
 
     info = LabInfo()
+    inputs = Inputs()
 
     def __init__(self,
-
                  info: LabInfo,
                  student: StudentInfo,
                  filename: str = __file__,
                  parts_folder: str | PathLike[str] = None,
+                 inputs: Inputs = None,
                  style: str | PathLike[str] = None,
                  **params):
         """
@@ -26,12 +28,16 @@ class Lab(ABC):
         :param student: Student info
         :param filename: __file__ of derived class
         :param parts_folder: Folder with xml steps files
+        :param inputs: Inputs
         :param style: Style xml file path
         :param params: Additional params for document
         """
 
         self.student = student
         self.info = info
+
+        if inputs is not None:
+            self.inputs = inputs
 
         self.__filename = filename
         parts_folder = self.get_path(parts_folder)
@@ -40,15 +46,12 @@ class Lab(ABC):
 
         params['jinja_globals'] = {
             'laba': self.info,
+            'inputs': self.inputs,
             'student': self.student,
             **params.get('jinja_globals', {})
         }
 
         self.document = Word.Document(self.__doc_container, style, parts_folder, **params)
-
-    @abstractmethod
-    def add_input(self, key: str, value) -> None:
-        pass
 
     @abstractmethod
     def run(self):

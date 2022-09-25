@@ -1,4 +1,4 @@
-from Word4Univer import Lab, LabInfo, StudentInfo, TitlePages
+from Word4Univer import Lab, LabInfo, StudentInfo
 
 from .Subjects import TestSubject
 
@@ -18,7 +18,3 @@ class PartsLab(Lab):
     def run(self):
         self.document.add_step("test")
         self.document.add_step("folder/test")
-
-    def add_input(self, key: str, value) -> None:
-        pass
-
